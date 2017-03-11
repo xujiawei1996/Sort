@@ -1,0 +1,107 @@
+#ifndef __SORT_HPP__
+#define __SORT_HPP__
+
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+//插入排序
+void Insert_Sort(int array[],int size)
+{
+	// 2, 5, 4, 9, 3, 6, 8, 7, 1, 0
+	for (int idx = 0; idx < size-1; ++idx)
+	{
+		int temp = array[idx+1];
+		int end = idx;
+		while (end>=0 && array[end]>temp)
+		{
+			array[end+1] = array[end];
+			end--;
+		}	
+		array[end+1] = temp;
+	}	
+}
+
+//二分查找插入排序
+void Insert_Sort_P(int array[], int size)
+{
+	//这里idx从零开始是为了更好的贴近数组下标
+	for (int idx = 0; idx < size - 1; ++idx)
+	{	
+		int temp = array[idx + 1];
+		int end = idx;
+		int left = 0;
+		int right = end;
+		
+		//二分查找查找需要插入的区间
+		while(left<=right)
+		{
+			int mid = left + ((right - left) >> 1);
+			if (array[mid] > temp)
+			{
+				right = mid - 1;
+			}
+			//这里有等于 等于的话相同的插入到后面
+			else
+			{
+				left = mid + 1;
+			}
+		}
+
+		//这里比left的原因是因为right-1可能最后为负数
+		while (end>=0&&end >= left)
+		{
+			array[end + 1] = array[end];
+			end--;
+		}
+		//如果要是上面while没有执行 则此时temp还是end+1的值 这一步相当于没有做
+		array[end + 1] = temp;
+	}
+}
+
+//希尔排序
+void Shell_Sort(int array[],int size)
+{
+	int gap = size;
+	//这里必须为>=1 因为可能最后两个两个排
+	while (gap >= 1)
+	{
+	gap = gap / 3 + 1;
+
+		for (int idx = gap; idx < size; ++idx)
+		{
+			//这里temp为gap下标的值
+			int temp = array[idx];
+			int end = idx - gap;
+			while (end >= 0 && array[end]>temp)
+			{
+				array[end + gap] = array[end];
+				end -= gap;
+			}
+			array[end+gap] = temp;
+		}
+		gap--;
+	}
+}
+	
+void Printf_Sort(int array[],int size)
+	{
+		for (int idx = 0; idx < size; ++idx)
+		{
+			cout << array[idx] << " ";
+		}
+		cout << endl;
+
+	}
+
+	void FunTest()
+	{
+		int arr[] = { 2, 5, 4, 9, 3, 6, 8, 7 ,1, 0 };
+		int size = sizeof(arr) / sizeof(arr[0]);
+		Printf_Sort(arr, size);
+		Shell_Sort(arr, size);
+		Printf_Sort(arr, size);
+	}
+
+
+#endif // __SORT_HPP__
