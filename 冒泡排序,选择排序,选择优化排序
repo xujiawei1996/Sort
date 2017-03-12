@@ -1,0 +1,69 @@
+
+//冒泡排序
+void Bubble_Sort(int array[],int size)
+{
+	for (int idx = 0; idx < size;++idx)
+	{
+		for (int index = 0; index < size-1;++index)
+		{
+			if (array[index] > array[index+1])
+			{
+				std::swap(array[index],array[index+1]);
+			}
+		}
+	}
+
+}
+
+//选择排序
+void Select_Sort(int array[], int size)
+{
+	int min = 0;
+	//几趟可以排完
+	for (int idx = 0; idx < size; ++idx)
+	{
+		min = idx;
+		for (int index = idx + 1; index < size; ++index)
+		{
+			if (array[min] > array[index])
+				min = index;
+		}
+
+		if (min != idx)
+		{
+			std::swap(array[min], array[idx]);
+		}
+	}
+}
+
+//选择排序优化
+void Select_Sort_Cool(int array[],int size)
+{
+	int min = 0;
+	int max = 0;
+	int left;
+	int right;
+	for (left = 0, right = size - 1; left<=right; left++, right--)
+	{
+		min = left;
+		max = right;
+		for (int idx = left; idx <= right; ++idx)
+		{
+			if (array[min] > array[idx])
+				min = idx;
+
+			if (array[max] < array[idx])
+				max = idx;
+		}
+
+		if (min != left)
+		{
+			std::swap(array[min], array[left]);
+		}
+
+		if (max != right)
+		{
+			std::swap(array[max], array[right]);
+		}
+	}
+}
