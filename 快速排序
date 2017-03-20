@@ -1,0 +1,25 @@
+//三数取中法  
+int FindMidIndex(int array[],int left,int right)  
+{  
+    int mid= right - ((right- left) >> 1);  
+    if(array[left]<= array[mid])  
+    {  
+   
+       if(array[right]< array[left])  
+           return left;  
+       if(array[right]> array[mid])  
+           return mid;  
+       else  
+           return right;  
+    }  
+    if(array[left]> array[mid])  
+    {  
+       if(array[right]> array[mid])  
+           return mid;  
+       if(array[right]> array[left])  
+           return left;  
+       else  
+           return right;  
+    }  
+    return 0;  
+}
