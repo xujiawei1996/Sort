@@ -1,0 +1,101 @@
+//三数取中法
+int FindMidIndex(int array[], int left, int right)
+{
+	int mid = right - ((right - left) >> 1);
+	if (array[left] <= array[mid])
+	{
+
+		if (array[right] < array[left])
+			return left;
+		if (array[right] > array[mid])
+			return mid;
+		else
+			return right;
+	}
+	if (array[left] > array[mid])
+	{
+		if (array[right] > array[mid])
+			return mid;
+		if (array[right] > array[left])
+			return left;
+		else
+			return right;
+	}
+	return 0;
+}
+
+
+int Quick_Pass1(int array[], int left, int right)
+{
+	//设置一个比较的值 尽量让比较值为较为中间的值
+	int keyIdx = FindMidIndex(array, left, right);
+	std::swap(array[keyIdx], array[right]);
+
+	int temp = array[right];
+
+	while (left < right)
+	{
+		//如果这时左边比比较值大 左边给右边 右边前移
+		while (left < right && array[left] < temp)
+			left++;
+		if (left < right)
+		{
+			array[right] = array[left];
+			right--;
+		}
+
+		//如果右边比比较值小 则右边的数值给左边，左边后移
+		while (left < right && array[right] >= temp)
+			right--;
+		if (left < right)
+		{
+			array[left] = array[right];
+			left++;
+		}
+	}
+	//最后一个 他俩相等的时候把中间比较值给过来 返回中间的下标
+	array[left] = temp;
+	return left;
+}
+
+//设置一个Pre与Cur 当Cur<=right的时候，就循环
+//当遇到Cur<key且Pre下一个不为Cur时,就让array[Cur]与array[Pre]交换
+//找小于key的数与大于key的数字交换
+int Quick_Pass2(int array[], int left, int right)
+{
+	int cur = left;
+	int prev = cur - 1;
+	int keyIdx = FindMidIndex(array, left, right);
+	std::swap(array[keyIdx],array[right]);
+	int key = array[right];
+
+	while (cur <= right)
+	{
+		//这里不用<=是因为防止重复数据 若出现重复复数据会交换很多次
+		if (array[cur] < key && ++prev != cur)
+			std::swap(array[cur],array[prev]);
+
+		++cur;
+	}
+	std::swap(array[++prev], array[right]);
+	return prev;
+}
+
+//递归快速排序
+void Quick_Sort(int array[],int left,int right)
+{
+	if (right - left<1)
+	{
+		Insert_Sort(array,right-left+1);
+	}
+
+	else
+	{
+		//先找到第一个数字应该放的点
+		int pos = Quick_Pass2(array, left,right);
+		//排这个数的左边的范围
+		Quick_Sort(array,left,pos-1);
+		//排这个数右边的范围
+		Quick_Sort(array, pos + 1,right);
+	}
+}
