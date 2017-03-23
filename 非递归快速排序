@@ -1,0 +1,30 @@
+//非递归快速排序
+void Quick_Sort_Nor(int array[], int left, int right)
+{
+	stack<int> s;
+	s.push(right);
+	s.push(left);
+
+	while (!s.empty())
+	{
+		left = s.top();
+		s.pop();
+		right = s.top();
+		s.pop();
+
+		int div = Quick_Pass2(array, left, right);
+		//此时可能会出现越界的问题 如果最后一个就为最大值 或者 第一个就为最小值
+		if (div - 1 > left)
+		{
+			//因为上面是先读取左再读取右  所以这里为先压右再压左
+			s.push(div - 1);
+			s.push(left);
+		}
+
+		if (div + 1 < right)
+		{
+			s.push(right);
+			s.push(div + 1);
+		}
+	}
+}
