@@ -1,0 +1,35 @@
+//鸽巢排序
+//思路:把数据存到一个数组里 数组里存放次数据出现的次数
+void Count_Sort(int array[],int size)
+{
+	int maxValue = array[0];
+	int minValue = array[0];
+
+	for (int idx = 0; idx < size; ++idx)
+	{
+		if (array[idx] > maxValue)
+			maxValue = array[idx];
+		if (array[idx] < minValue)
+			minValue = array[idx];
+	}
+
+	int range = maxValue - minValue + 1;
+	int *count = new int[range];
+	memset(count, 0, sizeof(int)*range);
+
+	for (int idx = 0; idx < size;++idx)
+	{
+		count[array[idx]]++;
+	}
+
+	size_t index = 0;
+	for (int i = 0; i < range;++i)
+	{
+		for (int j = 0; j < count[i];++j)
+		{
+			array[index++] = minValue+i;
+		}
+	}
+
+	delete[]count;
+}
