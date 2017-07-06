@@ -2,8 +2,10 @@
 //冒泡排序
 void Bubble_Sort(int array[],int size)
 {
+	//需要冒泡几趟 size-1趟
 	for (int idx = 0; idx < size;++idx)
 	{
+		//每次冒泡都是从第0个到size-1个 因为交换是index+1所以这里是size-2
 		for (int index = 0; index < size-1;++index)
 		{
 			if (array[index] > array[index+1])
