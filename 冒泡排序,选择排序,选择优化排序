@@ -24,7 +24,9 @@ void Select_Sort(int array[], int size)
 	//几趟可以排完
 	for (int idx = 0; idx < size; ++idx)
 	{
+		//每次选择一个最小的和最后一个交换 两层循环完即可完成
 		min = idx;
+		//每一次从inx+1和min比较
 		for (int index = idx + 1; index < size; ++index)
 		{
 			if (array[min] > array[index])
