@@ -41,6 +41,8 @@ void Select_Sort(int array[], int size)
 }
 
 //选择排序优化
+//两个变量min，max。一个保存最大值的下标，一个保存最小值的下标。
+//当遍历完一遍之后，取一个最大和最小的分别放到最右边和最左边
 void Select_Sort_Cool(int array[],int size)
 {
 	int min = 0;
