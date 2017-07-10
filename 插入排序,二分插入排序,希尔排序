@@ -9,15 +9,18 @@ using namespace std;
 void Insert_Sort(int array[],int size)
 {
 	// 2, 5, 4, 9, 3, 6, 8, 7, 1, 0
+	//循环size-1次。
 	for (int idx = 0; idx < size-1; ++idx)
 	{
 		int temp = array[idx+1];
 		int end = idx;
+		//每次比较都用end和和end+1地方比较
 		while (end>=0 && array[end]>temp)
 		{
 			array[end+1] = array[end];
 			end--;
 		}	
+		//最后将temp给end+1处
 		array[end+1] = temp;
 	}	
 }
